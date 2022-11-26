@@ -47,6 +47,8 @@
             // 
             // PlayerNameLabel
             // 
+            this.PlayerNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.PlayerNameLabel.AutoSize = true;
             this.PlayerNameLabel.Location = new System.Drawing.Point(334, 27);
             this.PlayerNameLabel.Name = "PlayerNameLabel";
@@ -66,9 +68,10 @@
             // TimeRemainingLabel
             // 
             this.TimeRemainingLabel.AutoSize = true;
-            this.TimeRemainingLabel.Location = new System.Drawing.Point(361, 115);
+            this.TimeRemainingLabel.Font = new System.Drawing.Font("Segoe UI", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TimeRemainingLabel.Location = new System.Drawing.Point(301, 119);
             this.TimeRemainingLabel.Name = "TimeRemainingLabel";
-            this.TimeRemainingLabel.Size = new System.Drawing.Size(27, 15);
+            this.TimeRemainingLabel.Size = new System.Drawing.Size(152, 86);
             this.TimeRemainingLabel.TabIndex = 2;
             this.TimeRemainingLabel.Text = "60 s";
             // 
