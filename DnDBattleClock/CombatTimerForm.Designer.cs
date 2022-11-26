@@ -37,6 +37,7 @@
             this.RestartTurnButton = new System.Windows.Forms.Button();
             this.EndCombatButton = new System.Windows.Forms.Button();
             this.PauseTurnButton = new System.Windows.Forms.Button();
+            this.NextPlayerLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // CombatSecondsTimer
@@ -79,6 +80,7 @@
             this.EndTurnButton.TabIndex = 3;
             this.EndTurnButton.Text = "End Turn";
             this.EndTurnButton.UseVisualStyleBackColor = true;
+            this.EndTurnButton.Click += new System.EventHandler(this.EndTurnButton_Click);
             // 
             // RestartTurnButton
             // 
@@ -88,6 +90,7 @@
             this.RestartTurnButton.TabIndex = 4;
             this.RestartTurnButton.Text = "Restart Turn";
             this.RestartTurnButton.UseVisualStyleBackColor = true;
+            this.RestartTurnButton.Click += new System.EventHandler(this.RestartTurnButton_Click);
             // 
             // EndCombatButton
             // 
@@ -107,12 +110,23 @@
             this.PauseTurnButton.TabIndex = 6;
             this.PauseTurnButton.Text = "Pause Turn";
             this.PauseTurnButton.UseVisualStyleBackColor = true;
+            this.PauseTurnButton.Click += new System.EventHandler(this.PauseTurnButton_Click);
+            // 
+            // NextPlayerLabel
+            // 
+            this.NextPlayerLabel.AutoSize = true;
+            this.NextPlayerLabel.Location = new System.Drawing.Point(334, 220);
+            this.NextPlayerLabel.Name = "NextPlayerLabel";
+            this.NextPlayerLabel.Size = new System.Drawing.Size(73, 15);
+            this.NextPlayerLabel.TabIndex = 7;
+            this.NextPlayerLabel.Text = "Next Player: ";
             // 
             // CombatTimerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.NextPlayerLabel);
             this.Controls.Add(this.PauseTurnButton);
             this.Controls.Add(this.EndCombatButton);
             this.Controls.Add(this.RestartTurnButton);
@@ -137,5 +151,6 @@
         private Button RestartTurnButton;
         private Button EndCombatButton;
         private Button PauseTurnButton;
+        private Label NextPlayerLabel;
     }
 }

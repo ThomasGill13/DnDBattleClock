@@ -47,8 +47,11 @@
             this.SavePlayersButton = new System.Windows.Forms.Button();
             this.SavePlayersDialog = new System.Windows.Forms.SaveFileDialog();
             this.LoadFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.TurnTimeNumUD = new System.Windows.Forms.NumericUpDown();
+            this.TurnTimeLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerDataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnTimeNumUD)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -183,11 +186,44 @@
             this.SavePlayersButton.UseVisualStyleBackColor = true;
             this.SavePlayersButton.Click += new System.EventHandler(this.SavePlayersButton_Click);
             // 
+            // TurnTimeNumUD
+            // 
+            this.TurnTimeNumUD.Location = new System.Drawing.Point(344, 575);
+            this.TurnTimeNumUD.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.TurnTimeNumUD.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.TurnTimeNumUD.Name = "TurnTimeNumUD";
+            this.TurnTimeNumUD.Size = new System.Drawing.Size(62, 23);
+            this.TurnTimeNumUD.TabIndex = 5;
+            this.TurnTimeNumUD.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // TurnTimeLabel
+            // 
+            this.TurnTimeLabel.AutoSize = true;
+            this.TurnTimeLabel.Location = new System.Drawing.Point(262, 577);
+            this.TurnTimeLabel.Name = "TurnTimeLabel";
+            this.TurnTimeLabel.Size = new System.Drawing.Size(79, 15);
+            this.TurnTimeLabel.TabIndex = 6;
+            this.TurnTimeLabel.Text = "Turn Time (s):";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 617);
+            this.Controls.Add(this.TurnTimeLabel);
+            this.Controls.Add(this.TurnTimeNumUD);
             this.Controls.Add(this.SavePlayersButton);
             this.Controls.Add(this.UpdateInitiativeButton);
             this.Controls.Add(this.StartCombatButton);
@@ -197,7 +233,9 @@
             this.Text = "D&D Battle Clock";
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PlayerDataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.TurnTimeNumUD)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -222,5 +260,7 @@
         private DataGridViewTextBoxColumn InitiativeSecretScore;
         private SaveFileDialog SavePlayersDialog;
         private OpenFileDialog LoadFileDialog;
+        private NumericUpDown TurnTimeNumUD;
+        private Label TurnTimeLabel;
     }
 }

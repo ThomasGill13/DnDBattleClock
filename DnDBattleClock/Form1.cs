@@ -11,6 +11,8 @@ namespace DnDBattleClock
         {
             InitializeComponent();
 
+            TurnTimeNumUD.Value = 60;
+
             for (int i = 0; i < PlayerDataGridView.Columns.Count; i++)
             {
                 PlayerDataGridView.Columns[i].SortMode = DataGridViewColumnSortMode.Programmatic;
@@ -22,8 +24,8 @@ namespace DnDBattleClock
 
         #region VARIABLES
 
-        List<int> _playerOrder = new List<int>();
-        //DataTable _dTable = new DataTable();
+        public List<Tuple<string, float>> playerOrder = new List<Tuple<string, float>>();
+        public int turnTime;
 
         #endregion
 
@@ -57,11 +59,16 @@ namespace DnDBattleClock
             // Sort by secret score
             PlayerDataGridView.Sort(PlayerDataGridView.Columns[6], System.ComponentModel.ListSortDirection.Descending);
 
+            playerOrder.Clear();
+
             // Iterate though each player in the dataset
             for (int i = 0; i < PlayerDataGridView.RowCount; i++)
             {
                 // Update initiative rank
                 PlayerDataGridView.Rows[i].Cells[4].Value = Convert.ToString(i + 1);
+
+                // Update player order list
+                playerOrder.Add(new Tuple<string, float>(Convert.ToString(PlayerDataGridView.Rows[i].Cells[0].Value), TryConvertData(PlayerDataGridView.Rows[i].Cells[3].Value)));
             }
         }
 
@@ -120,7 +127,7 @@ namespace DnDBattleClock
 
         private void DisplayCombatDialog()
         {
-            CombatTimerForm combatTimerForm = new CombatTimerForm();
+            CombatTimerForm combatTimerForm = new CombatTimerForm(this);
 
             combatTimerForm.ShowDialog();
         }
@@ -210,7 +217,13 @@ namespace DnDBattleClock
 
         private void StartCombatButton_Click(object sender, EventArgs e)
         {
-            DisplayCombatDialog();
+            UpdateInitiative();
+            turnTime = Convert.ToInt32(TurnTimeNumUD.Value);
+
+            if (playerOrder.Count > 0)
+            {
+                DisplayCombatDialog();
+            }
         }
     }
 }
