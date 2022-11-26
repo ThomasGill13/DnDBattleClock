@@ -64,6 +64,11 @@ namespace DnDBattleClock
             }
         }
 
+        private void SaveDataToFile()
+        {
+            PlayerDataGridView.
+        }
+
         #endregion
 
         #region STATIC_FUNCTIONS
@@ -123,6 +128,11 @@ namespace DnDBattleClock
             }
 
             e.Handled = true;
+        }
+
+        private void SavePlayersButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
