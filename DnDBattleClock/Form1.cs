@@ -118,6 +118,13 @@ namespace DnDBattleClock
             }
         }
 
+        private void DisplayCombatDialog()
+        {
+            CombatTimerForm combatTimerForm = new CombatTimerForm();
+
+            combatTimerForm.ShowDialog();
+        }
+
         #endregion
 
         #region STATIC_FUNCTIONS
@@ -199,6 +206,11 @@ namespace DnDBattleClock
             var loadStream = LoadFileDialog.OpenFile();
             LoadDataToFile(PlayerDataGridView, loadStream);
             loadStream.Close();
+        }
+
+        private void StartCombatButton_Click(object sender, EventArgs e)
+        {
+            DisplayCombatDialog();
         }
     }
 }

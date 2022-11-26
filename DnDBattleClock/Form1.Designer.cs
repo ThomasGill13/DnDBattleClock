@@ -161,6 +161,7 @@
             this.StartCombatButton.TabIndex = 2;
             this.StartCombatButton.Text = "Start Combat";
             this.StartCombatButton.UseVisualStyleBackColor = true;
+            this.StartCombatButton.Click += new System.EventHandler(this.StartCombatButton_Click);
             // 
             // UpdateInitiativeButton
             // 
