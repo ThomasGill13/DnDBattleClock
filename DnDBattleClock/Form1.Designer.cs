@@ -29,27 +29,29 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.PlayerDataGridView = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitiativeBonus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitRoll = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitiativeRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.InitiativeBonusRank = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayerName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitBonus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.InitiativeRoll = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
+            this.LoadPlayersButton = new System.Windows.Forms.Button();
+            this.StartCombatButton = new System.Windows.Forms.Button();
+            this.UpdateInitiativeButton = new System.Windows.Forms.Button();
+            this.SavePlayersButton = new System.Windows.Forms.Button();
+            this.InitiativeSecretScore = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.dataGridView1);
+            this.groupBox1.Controls.Add(this.PlayerDataGridView);
             this.groupBox1.Location = new System.Drawing.Point(35, 35);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(706, 453);
@@ -58,20 +60,25 @@
             this.groupBox1.Text = "Player List";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // dataGridView1
+            // PlayerDataGridView
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlayerDataGridView.AllowUserToAddRows = false;
+            this.PlayerDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PlayerDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn2,
             this.InitiativeBonus,
             this.InitRoll,
             this.InitScore,
-            this.InitiativeRank});
-            this.dataGridView1.Location = new System.Drawing.Point(97, 61);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(545, 227);
-            this.dataGridView1.TabIndex = 0;
+            this.InitiativeRank,
+            this.InitiativeBonusRank,
+            this.InitiativeSecretScore});
+            this.PlayerDataGridView.Location = new System.Drawing.Point(6, 56);
+            this.PlayerDataGridView.Name = "PlayerDataGridView";
+            this.PlayerDataGridView.RowTemplate.Height = 25;
+            this.PlayerDataGridView.Size = new System.Drawing.Size(718, 227);
+            this.PlayerDataGridView.TabIndex = 0;
+            this.PlayerDataGridView.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.PlayerDataGridView_SortCompare);
+            this.PlayerDataGridView.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.PlayerDataGridView_KeyPress);
             // 
             // dataGridViewTextBoxColumn2
             // 
@@ -100,6 +107,11 @@
             this.InitiativeRank.Name = "InitiativeRank";
             this.InitiativeRank.ReadOnly = true;
             // 
+            // InitiativeBonusRank
+            // 
+            this.InitiativeBonusRank.HeaderText = "Initiative Bonus Rank";
+            this.InitiativeBonusRank.Name = "InitiativeBonusRank";
+            // 
             // PlayerName
             // 
             this.PlayerName.HeaderText = "Player Name";
@@ -120,56 +132,62 @@
             this.dataGridViewTextBoxColumn1.HeaderText = "Player Name";
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
-            // button1
+            // LoadPlayersButton
             // 
-            this.button1.Location = new System.Drawing.Point(35, 508);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(145, 42);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Load Players";
-            this.button1.UseVisualStyleBackColor = true;
+            this.LoadPlayersButton.Location = new System.Drawing.Point(35, 508);
+            this.LoadPlayersButton.Name = "LoadPlayersButton";
+            this.LoadPlayersButton.Size = new System.Drawing.Size(145, 42);
+            this.LoadPlayersButton.TabIndex = 1;
+            this.LoadPlayersButton.Text = "Load Players";
+            this.LoadPlayersButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // StartCombatButton
             // 
-            this.button2.Location = new System.Drawing.Point(596, 508);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(145, 42);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Start Combat";
-            this.button2.UseVisualStyleBackColor = true;
+            this.StartCombatButton.Location = new System.Drawing.Point(596, 508);
+            this.StartCombatButton.Name = "StartCombatButton";
+            this.StartCombatButton.Size = new System.Drawing.Size(145, 42);
+            this.StartCombatButton.TabIndex = 2;
+            this.StartCombatButton.Text = "Start Combat";
+            this.StartCombatButton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // UpdateInitiativeButton
             // 
-            this.button3.Location = new System.Drawing.Point(412, 508);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(145, 42);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Update Initiative";
-            this.button3.UseVisualStyleBackColor = true;
+            this.UpdateInitiativeButton.Location = new System.Drawing.Point(412, 508);
+            this.UpdateInitiativeButton.Name = "UpdateInitiativeButton";
+            this.UpdateInitiativeButton.Size = new System.Drawing.Size(145, 42);
+            this.UpdateInitiativeButton.TabIndex = 3;
+            this.UpdateInitiativeButton.Text = "Update Initiative";
+            this.UpdateInitiativeButton.UseVisualStyleBackColor = true;
+            this.UpdateInitiativeButton.Click += new System.EventHandler(this.UpdateInitiativeButton_Click);
             // 
-            // button4
+            // SavePlayersButton
             // 
-            this.button4.Location = new System.Drawing.Point(224, 508);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(145, 42);
-            this.button4.TabIndex = 4;
-            this.button4.Text = "Save Players";
-            this.button4.UseVisualStyleBackColor = true;
+            this.SavePlayersButton.Location = new System.Drawing.Point(224, 508);
+            this.SavePlayersButton.Name = "SavePlayersButton";
+            this.SavePlayersButton.Size = new System.Drawing.Size(145, 42);
+            this.SavePlayersButton.TabIndex = 4;
+            this.SavePlayersButton.Text = "Save Players";
+            this.SavePlayersButton.UseVisualStyleBackColor = true;
+            // 
+            // InitiativeSecretScore
+            // 
+            this.InitiativeSecretScore.HeaderText = "Initiative Secret Score";
+            this.InitiativeSecretScore.Name = "InitiativeSecretScore";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 617);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.SavePlayersButton);
+            this.Controls.Add(this.UpdateInitiativeButton);
+            this.Controls.Add(this.StartCombatButton);
+            this.Controls.Add(this.LoadPlayersButton);
             this.Controls.Add(this.groupBox1);
             this.Name = "Form1";
             this.Text = "D&D Battle Clock";
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayerDataGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -177,7 +195,7 @@
         #endregion
 
         private GroupBox groupBox1;
-        private DataGridView dataGridView1;
+        private DataGridView PlayerDataGridView;
         private DataGridViewTextBoxColumn PlayerName;
         private DataGridViewTextBoxColumn InitBonus;
         private DataGridViewTextBoxColumn InitiativeRoll;
@@ -187,9 +205,11 @@
         private DataGridViewTextBoxColumn InitRoll;
         private DataGridViewTextBoxColumn InitScore;
         private DataGridViewTextBoxColumn InitiativeRank;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
+        private Button LoadPlayersButton;
+        private Button StartCombatButton;
+        private Button UpdateInitiativeButton;
+        private Button SavePlayersButton;
+        private DataGridViewTextBoxColumn InitiativeBonusRank;
+        private DataGridViewTextBoxColumn InitiativeSecretScore;
     }
 }
