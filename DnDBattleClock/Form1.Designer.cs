@@ -45,6 +45,8 @@
             this.StartCombatButton = new System.Windows.Forms.Button();
             this.UpdateInitiativeButton = new System.Windows.Forms.Button();
             this.SavePlayersButton = new System.Windows.Forms.Button();
+            this.SavePlayersDialog = new System.Windows.Forms.SaveFileDialog();
+            this.LoadFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PlayerDataGridView)).BeginInit();
             this.SuspendLayout();
@@ -149,6 +151,7 @@
             this.LoadPlayersButton.TabIndex = 1;
             this.LoadPlayersButton.Text = "Load Players";
             this.LoadPlayersButton.UseVisualStyleBackColor = true;
+            this.LoadPlayersButton.Click += new System.EventHandler(this.LoadPlayersButton_Click);
             // 
             // StartCombatButton
             // 
@@ -216,5 +219,7 @@
         private DataGridViewTextBoxColumn InitiativeRank;
         private DataGridViewTextBoxColumn InitiativeBonusRank;
         private DataGridViewTextBoxColumn InitiativeSecretScore;
+        private SaveFileDialog SavePlayersDialog;
+        private OpenFileDialog LoadFileDialog;
     }
 }

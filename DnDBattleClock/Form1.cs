@@ -23,6 +23,7 @@ namespace DnDBattleClock
         #region VARIABLES
 
         List<int> _playerOrder = new List<int>();
+        //DataTable _dTable = new DataTable();
 
         #endregion
 
@@ -64,9 +65,57 @@ namespace DnDBattleClock
             }
         }
 
-        private void SaveDataToFile()
+        private void SaveDataToFile(DataGridView dgv, Stream saveStream)
         {
-            PlayerDataGridView.
+            //_dTable.WriteXml("Test.xml");
+
+            //string file = "c:\\mygrid.bin";
+            using (BinaryWriter bw = new BinaryWriter(saveStream))
+            {
+                bw.Write(dgv.Columns.Count);
+                bw.Write(dgv.Rows.Count);
+                foreach (DataGridViewRow dgvR in dgv.Rows)
+                {
+                    for (int j = 0; j < dgv.Columns.Count; ++j)
+                    {
+                        object val = dgvR.Cells[j].Value;
+                        if (val == null)
+                        {
+                            bw.Write(false);
+                            bw.Write(false);
+                        }
+                        else
+                        {
+                            bw.Write(true);
+                            bw.Write(val.ToString());
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void LoadDataToFile(DataGridView dgv, Stream loadStream)
+        {
+            dgv.Rows.Clear();
+            //string file = "c:\\mygrid.bin";
+            using (BinaryReader bw = new BinaryReader(loadStream))
+            {
+                int n = bw.ReadInt32();
+                int m = bw.ReadInt32();
+                for (int i = 0; i < m; ++i)
+                {
+                    dgv.Rows.Add();
+                    for (int j = 0; j < n; ++j)
+                    {
+                        if (bw.ReadBoolean())
+                        {
+                            dgv.Rows[i].Cells[j].Value = bw.ReadString();
+                        }
+                        else bw.ReadBoolean();
+                    }
+                }
+            }
         }
 
         #endregion
@@ -132,7 +181,24 @@ namespace DnDBattleClock
 
         private void SavePlayersButton_Click(object sender, EventArgs e)
         {
+            SavePlayersDialog = new SaveFileDialog();
+            SavePlayersDialog.Filter = "Data File|*.dat";
+            SavePlayersDialog.ShowDialog();
 
+            var saveStream = SavePlayersDialog.OpenFile();
+            SaveDataToFile(PlayerDataGridView, saveStream);
+            saveStream.Close();
+        }
+
+        private void LoadPlayersButton_Click(object sender, EventArgs e)
+        {
+            LoadFileDialog = new OpenFileDialog();
+            LoadFileDialog.Filter = "Data File|*.dat";
+            LoadFileDialog.ShowDialog();
+
+            var loadStream = LoadFileDialog.OpenFile();
+            LoadDataToFile(PlayerDataGridView, loadStream);
+            loadStream.Close();
         }
     }
 }
