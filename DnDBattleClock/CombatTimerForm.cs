@@ -137,6 +137,11 @@ namespace DnDBattleClock
                 CombatSecondsTimer.Stop();
 
                 SystemSounds.Exclamation.Play();
+
+                if (_form1.autoStartNextPlayer)
+                {
+                    NextPlayer();
+                }
             }
 
             UpdateTurnTimerLabel();

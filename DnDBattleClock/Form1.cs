@@ -28,6 +28,7 @@ namespace DnDBattleClock
 
         public List<Tuple<string, float>> playerOrder = new List<Tuple<string, float>>();
         public int turnTime;
+        public bool autoStartNextPlayer;
 
         #endregion
 
@@ -221,6 +222,7 @@ namespace DnDBattleClock
         {
             UpdateInitiative();
             turnTime = Convert.ToInt32(TurnTimeNumUD.Value);
+            autoStartNextPlayer = AutoStartCheckBox.Checked;
 
             if (playerOrder.Count > 0)
             {
