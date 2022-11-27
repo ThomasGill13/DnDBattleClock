@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 using static System.Windows.Forms.DataFormats;
 
 namespace DnDBattleClock
@@ -24,6 +25,10 @@ namespace DnDBattleClock
             ResetTimer();
 
             UpdateLabels();
+
+            CenterControls();
+
+            FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
         #endregion
@@ -52,6 +57,15 @@ namespace DnDBattleClock
         private void UpdateTurnTimerLabel()
         {
             TimeRemainingLabel.Text = String.Format("{0} s", _curTurnTimerVal);
+
+            if (_curTurnTimerVal < _form1.turnTime / 4.0f)
+            {
+                TimeRemainingLabel.ForeColor = Color.Red;
+            }
+            else
+            {
+                TimeRemainingLabel.ForeColor = Color.Black;
+            }
         }
 
         private void NextPlayer()
@@ -69,6 +83,49 @@ namespace DnDBattleClock
             UpdateTurnTimerLabel();
         }
 
+
+        private void CenterControls()
+        {
+            CenterControl(this, TimeRemainingLabel); //.Left = windowMiddle;
+            CenterControl(this, CurrentInitiativeLabel); //.Left = windowMiddle;
+            CenterControl(this, NextPlayerLabel); //.Left = windowMiddle;
+            CenterControl(this, PlayerNameLabel); //.Left = windowMiddle;
+
+            CenterControl(this, RestartTurnButton);
+            CenterControl(this, EndCombatButton);
+
+            EdgeControl(this, PauseTurnButton, true, 10);
+            EdgeControl(this, EndTurnButton, false, 20);
+        }
+
+
+        #endregion
+
+        #region STATICS
+
+        static private void CenterControl(Form form, Control label)
+        {
+            // Get middle of window
+            var windowMiddle = form.Size.Width / 2;
+
+            // Get middle of label
+            var labelMiddle = label.Size.Width / 2;
+
+            label.Left = windowMiddle - labelMiddle;
+        }
+
+        static private void EdgeControl(Form form, Control label, bool leftEdge, int padding)
+        {
+            if (leftEdge)
+            {
+                label.Left = padding;
+            }
+            else
+            {
+                label.Left = form.Size.Width - (label.Size.Width + padding);
+            }
+        }
+
         #endregion
 
         private void CombatSecondsTimer_Tick(object sender, EventArgs e)
@@ -78,6 +135,8 @@ namespace DnDBattleClock
             if (_curTurnTimerVal <= 0)
             {
                 CombatSecondsTimer.Stop();
+
+                SystemSounds.Exclamation.Play();
             }
 
             UpdateTurnTimerLabel();
@@ -112,6 +171,12 @@ namespace DnDBattleClock
         private void EndTurnButton_Click(object sender, EventArgs e)
         {
             NextPlayer();
+        }
+
+        private void CombatTimerForm_ResizeEnd(object sender, EventArgs e)
+        {
+            // Get new window sizing
+            CenterControls();
         }
     }
 }

@@ -17,6 +17,8 @@ namespace DnDBattleClock
             {
                 PlayerDataGridView.Columns[i].SortMode = DataGridViewColumnSortMode.Programmatic;
             }
+
+            FormBorderStyle = FormBorderStyle.FixedSingle;
         }
 
 
